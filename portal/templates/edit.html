@@ -1,0 +1,29 @@
+{% extends "portal.html" %}
+
+    {% block head %}
+    <style>
+        #item-form-container {
+            display: block;
+        }
+    </style>
+{% endblock %}
+
+    {% block item-form %}
+    <div id="item-form-container">
+        <div id="item-form-menu">
+
+            <form action="{% url 'portal' %}">
+                <button type="submit">Close</button>
+            </form>
+            <form action="{% url 'delete' item.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+            <form action="{% url 'edit' item.id %}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Submit" method="POST">
+            </form>
+        </div>
+    </div>
+    {% endblock %}

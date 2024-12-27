@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+    {% block title %}{{ acct_type }} Portal{% endblock %}
+
+    {% block content %}
+    <div id="container">
+        <div id="container-header">
+            {% if user.account_type == "chef" %}
+            <h1>Manage Pizza Menu</h1>
+            {% elif user.account_type == "owner" %}
+            <h1>Manage Toppings</h1>
+            {% endif %}
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Log Out</button>
+            </form>
+
+        </div>
+        <div class="item-container">
+            <div class="item-elem">
+                <form action="{% url 'add' %}">
+                    {% csrf_token %}
+                    <button class="item-button" type="submit"><strong>
+                        ADD 
+                        {% if user.account_type == "chef" %}
+                        PIZZA
+                        {% elif user.account_type == "owner" %}
+                        TOPPING
+                        {% endif %}
+                    </strong></button>
+                </form>
+            </div>
+            {% for item in items %}
+            <div class="item-elem">
+                <form action="{% url 'edit' item.id %}">
+                    {% csrf_token %}
+                    <button class="item-button" type="submit">
+                        {{ item.name }}
+                        {% if item.additional_cost > 0 %}(${{ item.additional_cost|floatformat:2 }}){% endif %}
+                        {% if item.total_cost > 0 %}(${{ item.total_cost|floatformat:2 }}){% endif %}
+                    </button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% block item-form %}
+    {% endblock %}
+    {% endblock %}
