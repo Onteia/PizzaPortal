@@ -10,7 +10,7 @@ With this project I wanted to take the time to learn Django and further develop 
 to the forms. I figured that the templates should only be reserved for displaying the content rather than also processing that very same content. If, in the future, the website were 
 to be changed, those modifications would be easier to make without worrying about breaking the underlying app. Throughout the construction of the portal, I was indecisive about the 
 behavior when an owner deletes a topping that belongs to pizzas on the menu. In the end, I decided the most straightforward behavior from the perspective of the owners and chefs would be to
-delete the pizzas that contained the topping as well. I chose to implement the relationship between Pizzas and Toppings as a ManyToMany relationship because I wanted to give chefs and owners
+delete the pizzas that contained the topping as well. I chose to implement the relationship between Pizzas and Toppings as a ManyToMany relationship because I wanted to give chefs
 as much freedom as possible to create many different pizzas. However, I quickly learned that ManyToMany relationships didn't have a constraint for unique sets of these relationships.
 So, in order to satisfy the conditions of unique pizzas with unique toppings, I overrode the `clean()` method of the PizzaForm---the method that validates forms. Lastly, I added 
 extra fields such as description and costs to further learn how Django works and to gather any additional knowledge as I reasonably can with this project.
@@ -67,6 +67,12 @@ Ensure you have the following:
 	```powershell
 	echo | set /p=SECRET_KEY=> .env
 	python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())" >> .env
+	```
+
+5. Create and migrate database data
+
+	```bash
+	python manage.py migrate
 	```
 
 # Running
