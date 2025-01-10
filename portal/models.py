@@ -1,6 +1,5 @@
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
-from hashlib import sha256
+from django.core.validators import MinValueValidator
 
 
 class Topping(models.Model):
@@ -24,6 +23,12 @@ class Topping(models.Model):
     def __str__(self):
         cost_text = " ($" + self.additional_cost.to_eng_string() + ")"
         return self.name + ("", cost_text)[self.additional_cost > 0]
+
+    def delete(self, *args, **kwargs):
+        parents = Pizza.objects.filter(toppings__in=[self])
+        for parent in parents:
+            parent.delete()
+        super().delete(**kwargs)
 
 
 class Pizza(models.Model):

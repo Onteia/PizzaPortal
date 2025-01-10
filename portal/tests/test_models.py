@@ -32,6 +32,22 @@ class ToppingTests(TestCase):
         self.assertEqual(str(pepperoni_topping), "Pepperoni")
         self.assertEqual(str(olives_topping), "Olives ($0.99)")
 
+    def test_deletion_removes_from_database(self):
+        topping = Topping.objects.create(name="Tomato Sauce")
+        topping.delete()
+
+        with self.assertRaises(topping.DoesNotExist):
+            Topping.objects.get(name="Tomato Sauce")
+
+    def test_topping_deletion_deletes_parent_pizzas(self):
+        topping = Topping.objects.create(name="Alfredo Sauce")
+        pizza = Pizza.objects.create(name="White Pizza", cost=11.99)
+        pizza.toppings.add(topping)
+        topping.delete()
+
+        with self.assertRaises(pizza.DoesNotExist):
+            Pizza.objects.get(name="White Pizza")
+
 
 class PizzaTests(TestCase):
     def setUp(self):
@@ -72,9 +88,14 @@ class PizzaTests(TestCase):
 
     def test_total_cost_is_sum_of_cost_and_additional_topping_costs(self):
         pizza_toppings = Topping.objects.get(name="Pepperoni")
-        pizza_toppings.save()
         pizza = Pizza.objects.get(name="Pepperoni Pizza")
-        pizza.save()
         pizza.toppings.add(pizza_toppings)
 
         self.assertEquals(pizza.total_cost(), 7.24)
+
+    def test_deletion_removes_from_database(self):
+        pizza = Pizza.objects.create(name="Neapolitan Pizza", cost=8.99)
+        pizza.delete()
+
+        with self.assertRaises(pizza.DoesNotExist):
+            Pizza.objects.get(name="Neapolitan Pizza")
