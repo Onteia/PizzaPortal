@@ -24,5 +24,5 @@ class ContextProcessorTests(TestCase):
         self.client.force_login(user=self.user)
         response = self.client.get(self.portal_url)
         topping = Topping.objects.all()
-        self.assertEquals(response.context["acct_type"], "Owner")
+        self.assertEqual(response.context["acct_type"], "Owner")
         self.assertQuerySetEqual(response.context["items"], topping)

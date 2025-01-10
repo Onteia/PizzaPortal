@@ -16,7 +16,7 @@ class HomeViewTests(TestCase):
 
     def test_GET_returns_200_response(self):
         response = self.client.get(self.home_url)
-        self.assertEquals(response.status_code, self.STATUS_OK)
+        self.assertEqual(response.status_code, self.STATUS_OK)
 
     def test_unauthenticated_user_sent_to_homepage(self):
         response = self.client.get(self.home_url)

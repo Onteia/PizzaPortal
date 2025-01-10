@@ -26,7 +26,7 @@ class PortalViewTests(TestCase):
         self.client.force_login(user=self.user)
         response = self.client.get(self.portal_url)
 
-        self.assertEquals(response.status_code, self.STATUS_OK)
+        self.assertEqual(response.status_code, self.STATUS_OK)
         self.assertTemplateUsed(response, "portal.html")
 
 
@@ -56,14 +56,14 @@ class AddViewTests(TestCase):
         self.client.force_login(self.chef_user)
         response = self.client.get(self.add_url)
 
-        self.assertEquals(response.status_code, self.STATUS_OK)
+        self.assertEqual(response.status_code, self.STATUS_OK)
         self.assertTemplateUsed(response, "add.html")
 
     def test_owner_GET_returns_200_response(self):
         self.client.force_login(self.owner_user)
         response = self.client.get(self.add_url)
 
-        self.assertEquals(response.status_code, self.STATUS_OK)
+        self.assertEqual(response.status_code, self.STATUS_OK)
         self.assertTemplateUsed(response, "add.html")
 
     def test_valid_chef_POST_redirected_to_portal(self):
@@ -92,14 +92,14 @@ class AddViewTests(TestCase):
         self.client.force_login(self.chef_user)
         response = self.client.post(self.add_url, data={})
 
-        self.assertEquals(response.status_code, self.STATUS_OK)
+        self.assertEqual(response.status_code, self.STATUS_OK)
         self.assertTemplateUsed(response, "add.html")
 
     def test_invalid_owner_POST_returns_200(self):
         self.client.force_login(self.owner_user)
         response = self.client.post(self.add_url, data={})
 
-        self.assertEquals(response.status_code, self.STATUS_OK)
+        self.assertEqual(response.status_code, self.STATUS_OK)
         self.assertTemplateUsed(response, "add.html")
 
 
@@ -137,7 +137,7 @@ class EditViewTests(TestCase):
         url = reverse("edit", kwargs={"item_id": self.pizza.id})
         response = self.client.get(url)
 
-        self.assertEquals(response.status_code, self.STATUS_OK)
+        self.assertEqual(response.status_code, self.STATUS_OK)
         self.assertTemplateUsed(response, "edit.html")
 
     def test_owner_GET_returns_200_response(self):
@@ -145,7 +145,7 @@ class EditViewTests(TestCase):
         url = reverse("edit", kwargs={"item_id": self.topping.id})
         response = self.client.get(url)
 
-        self.assertEquals(response.status_code, self.STATUS_OK)
+        self.assertEqual(response.status_code, self.STATUS_OK)
         self.assertTemplateUsed(response, "edit.html")
 
     def test_valid_chef_POST_redirected_to_portal(self):
@@ -177,7 +177,7 @@ class EditViewTests(TestCase):
         url = reverse("edit", kwargs={"item_id": self.pizza.id})
         response = self.client.post(url, data={})
 
-        self.assertEquals(response.status_code, self.STATUS_OK)
+        self.assertEqual(response.status_code, self.STATUS_OK)
         self.assertTemplateUsed(response, "edit.html")
 
     def test_invalid_owner_POST_returns_200(self):
@@ -185,7 +185,7 @@ class EditViewTests(TestCase):
         url = reverse("edit", kwargs={"item_id": self.topping.id})
         response = self.client.post(url, data={})
 
-        self.assertEquals(response.status_code, self.STATUS_OK)
+        self.assertEqual(response.status_code, self.STATUS_OK)
         self.assertTemplateUsed(response, "edit.html")
 
     def test_invalid_pizza_id_raises_no_reverse_match(self):

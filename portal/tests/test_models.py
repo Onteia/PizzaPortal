@@ -11,7 +11,7 @@ class ToppingTests(TestCase):
     def test_name_persists(self):
         pepperoni = Topping.objects.get(name="Pepperoni")
 
-        self.assertEquals(pepperoni.name, "Pepperoni")
+        self.assertEqual(pepperoni.name, "Pepperoni")
 
     def test_null_name_raises_integrity_error(self):
         with self.assertRaises(IntegrityError):
@@ -57,7 +57,7 @@ class PizzaTests(TestCase):
         self.pizza_instance = Pizza.objects.create(name="Pepperoni Pizza", cost="6.99")
 
     def test_name_persists(self):
-        self.assertEquals(self.pizza_instance.name, "Pepperoni Pizza")
+        self.assertEqual(self.pizza_instance.name, "Pepperoni Pizza")
 
     def test_null_name_raises_integrity_error(self):
         with self.assertRaises(IntegrityError):
@@ -68,14 +68,14 @@ class PizzaTests(TestCase):
             name="Descriptive Pizza", cost=12.50, description="14-inch cheese pizza"
         )
 
-        self.assertEquals(pizza.description, "14-inch cheese pizza")
+        self.assertEqual(pizza.description, "14-inch cheese pizza")
 
     def test_null_description_raises_integrity_error(self):
         with self.assertRaises(IntegrityError):
             Pizza.objects.create(name="Invalid Description", cost=11, description=None)
 
     def test_cost_persists(self):
-        self.assertEquals(float(self.pizza_instance.cost), 6.99)
+        self.assertEqual(float(self.pizza_instance.cost), 6.99)
 
     def test_null_cost_raises_integrity_error(self):
         with self.assertRaises(IntegrityError):
@@ -91,7 +91,7 @@ class PizzaTests(TestCase):
         pizza = Pizza.objects.get(name="Pepperoni Pizza")
         pizza.toppings.add(pizza_toppings)
 
-        self.assertEquals(pizza.total_cost(), 7.24)
+        self.assertEqual(pizza.total_cost(), 7.24)
 
     def test_deletion_removes_from_database(self):
         pizza = Pizza.objects.create(name="Neapolitan Pizza", cost=8.99)

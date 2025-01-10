@@ -140,7 +140,7 @@ class PizzaFormTests(TestCase):
         form.save()
 
         self.assertTrue(form.is_valid())
-        self.assertEquals(form.instance.name, "New York Style Cheese Pizza")
+        self.assertEqual(form.instance.name, "New York Style Cheese Pizza")
 
     def test_changing_instance_description_modifies_description(self):
         self.request.POST = {
@@ -161,7 +161,7 @@ class PizzaFormTests(TestCase):
         form.save()
 
         self.assertTrue(form.is_valid())
-        self.assertEquals(
+        self.assertEqual(
             form.instance.description,
             "Our world-famous cheese pizza made with real mozzarella cheese!",
         )
@@ -183,7 +183,7 @@ class PizzaFormTests(TestCase):
         form.save()
 
         self.assertTrue(form.is_valid())
-        self.assertEquals(float(form.instance.cost), 5.99)
+        self.assertEqual(float(form.instance.cost), 5.99)
 
     def test_changing_instance_toppings_modifies_toppings(self):
         self.request.POST = {
@@ -269,7 +269,7 @@ class ToppingFormTests(TestCase):
         form = ToppingForm(self.request.POST, instance=form.instance)
 
         self.assertTrue(form.is_valid())
-        self.assertEquals(form.instance.name, "Pepperoni")
+        self.assertEqual(form.instance.name, "Pepperoni")
 
     def test_changing_instance_additional_cost_modifies_cost(self):
         self.request.POST = {"name": "Sweet Onion"}
@@ -282,4 +282,4 @@ class ToppingFormTests(TestCase):
         form = ToppingForm(self.request.POST, instance=form.instance)
 
         self.assertTrue(form.is_valid())
-        self.assertEquals(float(form.instance.additional_cost), 0.99)
+        self.assertEqual(float(form.instance.additional_cost), 0.99)
